@@ -23,9 +23,10 @@ export const Card = ({ title, link, type }: CardProps) => {
         </div>
 
 
-        <div className="flex  text-gray-500 gap-3 items-center">
-          <a href={link} target="_blank"><ShareIcon /></a>
-          <DeleteIcon />
+        <div className="flex  text-gray-500 gap-3 items-center ">
+          <div className="hover:bg-purple-600 rounded"><a href={link} target="_blank"><ShareIcon /></a></div>
+          <div> <DeleteIcon /></div>
+         
         </div>
 
       </div>
