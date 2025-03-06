@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { DeleteIcon } from "./icons/DeleteIcon"
 import { DocumentIcon } from "./icons/DocumentIcon"
 import { ShareIcon } from "./icons/ShareIcon"
@@ -24,7 +25,7 @@ export const Card = ({ title, link, type }: CardProps) => {
 
 
         <div className="flex  text-gray-500 gap-3 items-center ">
-          <div className="hover:bg-purple-600 rounded"><a href={link} target="_blank"><ShareIcon /></a></div>
+          <div ><Link to={link} target="_blank">{<ShareIcon/>}</Link></div>
           <div> <DeleteIcon /></div>
          
         </div>

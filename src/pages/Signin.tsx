@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "../components/Button";
 import { InputBox } from "../components/InputBox";
 
@@ -11,6 +12,10 @@ return <div className="h-screen w-screen  bg-gray-200 flex justify-center items-
     <InputBox placeholder="Password"/>
     <div className="flex justify-center pt-4"><Button variant="primary" text="Sign In" fullWidth/></div>
     
+    <div className="flex ">
+      <p className="text-md pr-2">Don't have an account</p> 
+      <Link className="font-semibold" to="/signup">Sign Up here</Link>
+    </div>
 
    </div>
 </div>
