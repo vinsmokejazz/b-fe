@@ -1,15 +1,23 @@
 
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '../components/Button'
 import { Card } from '../components/Card'
 import { ContentModal } from '../components/ContentModal'
 import { PlusIcon } from '../components/icons/PlusIcon'
 import { ShareIcon } from '../components/icons/ShareIcon'
 import { SideBar } from '../components/SideBar'
+import { useContent } from '../hooks/useContent'
+import axios from 'axios'
+import { BACKEND_URL } from '../config'
 
 function Dashboard() {
   const [modalOpen, setModalOpen] = useState(false);
+  const { contents, referesh } = useContent();
+
+  useEffect(() => {
+    referesh();
+  }, [modalOpen])
 
 
   return (
@@ -21,12 +29,31 @@ function Dashboard() {
 
           <div className='flex justify-end gap-4'>
             <Button onClick={() => { setModalOpen(true) }} text='Add Content' variant='primary' startIcon={<PlusIcon />}></Button>
-            <Button text='Share brain' variant='secondary' startIcon={<ShareIcon />}></Button>
+            
+            <Button onClick={async () => {
+              const response = await axios.post(`${BACKEND_URL}/api/v1/brain/share`, {
+                share: true
+
+              }, {
+                headers: {
+                  "Authorization": localStorage.getItem("token")
+                }
+              });
+              const shareUrl = `http://localhost:5173/share/${response.data.hash}`;
+              alert(shareUrl);
+
+
+            }} text='Share brain' variant='secondary' startIcon={<ShareIcon />}></Button>
           </div>
 
-          <div className='flex gap-6' >
-            <Card type='youtube' link="https://www.youtube.com/watch?v=zqGW6x_5N0k" title='ANIMAL'></Card>
-            <Card type='twitter' link='https://x.com/elonmusk/status/1812258574049157405' title='elon tweet'></Card>
+          <div className='flex gap-6 flex-wrap' >
+            {contents.map(({ type, link, title }) => <Card
+              type={type}
+              link={link}
+              title={title}
+            />
+            )}
+
 
           </div>
         </div>
